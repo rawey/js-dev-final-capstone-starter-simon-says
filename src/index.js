@@ -157,12 +157,17 @@ function padHandler(event) {
  */
 function setLevel(level = 1) {
   // TODO: Write your code here.
-  function setLevel(level = 1) {    
-    if (level >= 1 && level <= 4) {
-            console.log(`Game level set to ${level}`);
-    } else {
-            console.error("Invalid level value. Please choose a level between 1 and 4.");
-    }
+  const levelRounds = {
+    1: 8,
+    2: 14,
+    3: 20,
+    4: 31
+  };
+
+  if (levelRounds.hasOwnProperty(level)) {
+    return levelRounds[level];
+  } else {
+    return "Please enter level 1, 2, 3, or 4";
   }
 }
 
@@ -182,9 +187,9 @@ function setLevel(level = 1) {
  * getRandomItem([1, 2, 3, 4]) //> returns 1
  */
 function getRandomItem(collection) {
-  // if (collection.length === 0) return null;
-  // const randomIndex = Math.floor(Math.random() * collection.length);
-  // return collection[randomIndex];
+  if (collection.length === 0) return null;
+  const randomIndex = Math.floor(Math.random() * collection.length);
+  return collection[randomIndex];
 }
 
 /**
@@ -192,6 +197,8 @@ function getRandomItem(collection) {
  */
 function setText(element, text) {
   // TODO: Write your code here.
+  element.textContent = text;
+
   return element;
 }
 
@@ -210,6 +217,20 @@ function setText(element, text) {
 
 function activatePad(color) {
   // TODO: Write your code here.
+  const pad = pads.find(pad => pad.color === color);
+  
+  if (!pad) {
+    console.error(`Pad with color ${color} not found.`);
+    return;
+  }
+
+  pad.selector.classList.add("activated");
+
+  pad.sound.play();
+
+  setTimeout(() => {
+    pad.selector.classList.remove("activated");
+  }, 500);
 }
 
 /**
@@ -228,6 +249,15 @@ function activatePad(color) {
 
 function activatePads(sequence) {
   // TODO: Write your code here.
+  let delay = 600;
+
+  sequence.forEach((color, index) => {
+    setTimeout(() => {
+      activatePad(color);
+    }, delay);
+
+    delay += 600;
+  });
 }
 
 /**
@@ -256,7 +286,18 @@ function activatePads(sequence) {
  function playComputerTurn() {
   // TODO: Write your code here.
 
-  setTimeout(() => playHumanTurn(roundCount), roundCount * 600 + 1000); // 5
+  padContainer.classList.add("unclickable");
+
+  setText(statusSpan, "The computer's turn...");
+
+  setText(heading, `Round ${roundCount} of ${maxRoundCount}`);
+
+  const randomPad = pads[Math.floor(Math.random() * pads.length)];
+  computerSequence.push(randomPad.color);
+
+  activatePads(computerSequence);
+
+  setTimeout(() => playHumanTurn(roundCount), (roundCount * 600) + 1000); // 5
 }
 
 /**
