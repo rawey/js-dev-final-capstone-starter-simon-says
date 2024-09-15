@@ -2,11 +2,11 @@
  * DOM SELECTORS
  */
 
- const startButton = document.querySelector(".js-start-button");
+ const startButton = document.querySelector(".start-button js-start-button");
  // TODO: Add the missing query selectors:
- const statusSpan; // Use querySelector() to get the status element
- const heading; // Use querySelector() to get the heading element
- const padContainer; // Use querySelector() to get the heading element
+ const statusSpan = document.querySelector(".status hidden js-status"); // Use querySelector() to get the status element
+ const heading = document.querySelector(".js-heading");  // Use querySelector() to get the heading element
+ const padContainer = document.querySelector(".pad-container unclickable js-pad-container"); // Use querySelector() to get the heading element
 
 /**
  * VARIABLES
@@ -35,9 +35,32 @@ let roundCount = 0; // track the number of rounds that have been played so far
   {
     color: "red",
     selector: document.querySelector(".js-pad-red"),
-    sound: new Audio("../assets/simon-says-sound-1.mp3"),
+    sound: new Audio(
+      "https://github.com/kchia/simon-says-sounds/blob/main/simon-says-sound-1.mp3?raw=true"
+    ),
   },
-  // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example.
+  // TODO: Add the objects for the green, blue, and yellow pads. Use object for the red pad above as an example. },
+  {
+    color: "green",
+    selector: document.querySelector(".js-pad-green"),
+    sound: new Audio(
+      "https://github.com/kchia/simon-says-sounds/blob/main/simon-says-sound-2.mp3?raw=true"
+    ),
+  },
+  {
+    color: "blue",
+    selector: document.querySelector(".js-pad-blue"),
+    sound: new Audio(
+      "https://github.com/kchia/simon-says-sounds/blob/main/simon-says-sound-3.mp3?raw=true"
+    ),
+  },
+  {
+    color: "yellow",
+    selector: document.querySelector(".js-pad-yellow"),
+    sound: new Audio(
+      "https://github.com/kchia/simon-says-sounds/blob/main/simon-says-sound-4.mp3?raw=true"
+    ),
+  },
 ];
 
 /**
