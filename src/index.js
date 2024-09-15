@@ -69,7 +69,7 @@ let roundCount = 0; // track the number of rounds that have been played so far
 
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
-
+startButton.addEventListener("click", startButtonHandler);
 /**
  * EVENT HANDLERS
  */
@@ -90,6 +90,17 @@ padContainer.addEventListener("click", padHandler);
  */
 function startButtonHandler() {
   // TODO: Write your code here.
+
+  setLevel(); 
+
+  let roundCount = 1;
+
+  startButton.classList.add("hidden");
+
+  statusSpan.classList.remove("hidden");
+  statusSpan.textContent = `Round ${roundCount}: Game Started!`;
+
+  playComputerTurn();
 
   return { startButton, statusSpan };
 }
@@ -146,6 +157,13 @@ function padHandler(event) {
  */
 function setLevel(level = 1) {
   // TODO: Write your code here.
+  function setLevel(level = 1) {    
+    if (level >= 1 && level <= 4) {
+            console.log(`Game level set to ${level}`);
+    } else {
+            console.error("Invalid level value. Please choose a level between 1 and 4.");
+    }
+  }
 }
 
 /**
