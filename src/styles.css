@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Microbe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
 html {
-  background: url('../assets/background.png') no-repeat center center fixed;
-  box-sizing: border-box;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+  background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+  background-image: url('https://image.cdn2.seaart.ai/2023-10-25/20807502472974341/0216fe55e030602975415d8fdf7e0bfe6526be56_high.webp');
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
 body {
-  color: yellow;
-  font-family: 'Rubik Microbe', sans-serif;
+  color: #00ffcc;
+  font-family: 'Orbitron', sans-serif;
   display: flex;
   justify-content: center;
   height: 100vh;
@@ -20,13 +20,27 @@ body {
 }
 
 main {
-  background-color: #000;
-  padding: 40px;
+  background-color: rgba(0, 0, 0, 0.90);
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0px 0px 20px #00ffff;
+  animation: neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neon-glow {
+  from {
+    box-shadow: 0px 0px 20px #00ffff;
+  }
+  to {
+    box-shadow: 0px 0px 40px #00ffff, 0px 0px 80px #00ffcc;
+  }
 }
 
 h1 {
   text-align: center;
-  font-size: 40px;
+  font-size: 50px;
+  color: #ff00ff;
+  text-shadow: 0px 0px 10px #ff00ff, 0px 0px 20px #ff66ff;
 }
 
 .game-controls {
@@ -35,102 +49,109 @@ h1 {
 
 .start-button {
   display: inline-block;
-  height: 38px;
-  padding: 0 30px;
-  color: yellow;
+  height: 50px;
+  padding: 0 40px;
+  color: #00ffcc;
   text-align: center;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   text-transform: uppercase;
   background-color: transparent;
-  border: 1px solid yellow;
+  border: 2px solid #00ffcc;
   cursor: pointer;
+  border-radius: 50px;
+  transition: all 0.3s ease;
 }
 
 .start-button:hover {
-  color: greenyellow;
-  font-size: 18px;
-  border-color: greenyellow;
-  transform: rotate(5deg);
+  color: #ff66ff;
+  font-size: 20px;
+  border-color: #ff66ff;
+  transform: scale(1.1) rotate(10deg);
 }
 
 .status {
-  font-size: 22px;
+  font-size: 26px;
+  color: #00ffcc;
 }
 
 .pad-container {
   display: grid;
   grid-template-rows: 200px 200px;
   grid-template-columns: 200px 200px;
-  grid-gap: 5px;
-  margin: 20px;
+  grid-gap: 10px;
+  margin: 30px;
 }
 
 .pad-red {
-  border-top-left-radius: 200px;
-  background-color: red;
+  border-top-left-radius: 50%;
+  background-color: #ff0033;
+  box-shadow: 0px 0px 15px #ff0033;
 }
 
 .pad-red:hover,
 .pad-red:focus {
-  background-color: #ff451a;
-  transform: rotate(-5deg);
+  background-color: #ff3366;
+  transform: rotate(-10deg);
 }
 
 .pad-red:active,
 .pad-red.activated {
-  background-color: #ff5c36;
+  background-color: #ff6699;
   transform: translateY(10px);
 }
 
 .pad-green {
-  border-top-right-radius: 200px;
-  background-color: green;
+  border-top-right-radius: 50%;
+  background-color: #00ff99;
+  box-shadow: 0px 0px 15px #00ff99;
 }
 
 .pad-green:hover,
 .pad-green:focus {
-  background-color: #8cc218;
-  transform: rotate(5deg);
+  background-color: #33ffaa;
+  transform: rotate(10deg);
 }
 
 .pad-green:active,
 .pad-green.activated {
-  background-color: #a0ea00;
+  background-color: #66ffcc;
   transform: translateY(10px);
 }
 
 .pad-yellow {
-  border-bottom-right-radius: 200px;
-  background-color: yellow;
+  border-bottom-right-radius: 50%;
+  background-color: #ffff33;
+  box-shadow: 0px 0px 15px #ffff33;
 }
 
 .pad-yellow:hover,
 .pad-yellow:focus {
-  background-color: #ffb900;
-  transform: rotate(5deg);
+  background-color: #ffff66;
+  transform: rotate(10deg);
 }
 
 .pad-yellow:active,
 .pad-yellow.activated {
-  background-color: #ffca3d;
+  background-color: #ffff99;
   transform: translateY(10px);
 }
 
 .pad-blue {
-  border-bottom-left-radius: 200px;
-  background-color: blue;
+  border-bottom-left-radius: 50%;
+  background-color: #3366ff;
+  box-shadow: 0px 0px 15px #3366ff;
 }
 
 .pad-blue:hover,
 .pad-blue:focus {
-  background-color: #139ddd;
-  transform: rotate(5deg);
+  background-color: #6699ff;
+  transform: rotate(10deg);
 }
 
 .pad-blue:active,
 .pad-blue.activated {
-  background-color: #2bbcff;
+  background-color: #99ccff;
   transform: translateY(10px);
 }
 

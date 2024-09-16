@@ -137,6 +137,10 @@ function padHandler(event) {
   // TODO: Write your code here.
   const pad = pads.find(pad => pad.color === color);
 
+  pad.sound.pause();
+
+  pad.sound.currentTime = 0;
+
   pad.sound.play();
 
   checkPress(color);
@@ -239,6 +243,10 @@ function activatePad(color) {
   }
 
   pad.selector.classList.add("activated");
+
+  pad.sound.pause();
+
+  pad.sound.currentTime = 0;
 
   pad.sound.play();
 
@@ -423,7 +431,7 @@ function resetGame(text) {
 
   // Uncomment the code below:
   alert(text);
-  setText(heading, "Simon Says");
+  setText(heading, "Rawey Says");
   startButton.classList.remove("hidden");
   statusSpan.classList.add("hidden");
   padContainer.classList.add("unclickable");
