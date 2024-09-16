@@ -2,11 +2,11 @@
  * DOM SELECTORS
  */
 
- const startButton = document.querySelector(".start-button js-start-button");
+ const startButton = document.querySelector(".js-start-button");
  // TODO: Add the missing query selectors:
- const statusSpan = document.querySelector(".status hidden js-status"); // Use querySelector() to get the status element
+ const statusSpan = document.querySelector(".js-status"); // Use querySelector() to get the status element
  const heading = document.querySelector(".js-heading");  // Use querySelector() to get the heading element
- const padContainer = document.querySelector(".pad-container unclickable js-pad-container"); // Use querySelector() to get the heading element
+ const padContainer = document.querySelector(".js-pad-container"); // Use querySelector() to get the heading element
 
 /**
  * VARIABLES
@@ -91,9 +91,17 @@ startButton.addEventListener("click", startButtonHandler);
 function startButtonHandler() {
   // TODO: Write your code here.
 
+  let level = parseInt(prompt("Choose a level (1 to 4):"), 10);
+
+  while (![1, 2, 3, 4].includes(level)) {
+    level = parseInt(prompt("Please enter a valid level (1 to 4):"), 10);
+  }
+
+  maxRoundCount = setLevel(level);
+
   setLevel(); 
 
-  let roundCount = 1;
+  roundCount = 1;
 
   startButton.classList.add("hidden");
 
@@ -127,6 +135,12 @@ function padHandler(event) {
   if (!color) return;
 
   // TODO: Write your code here.
+  const pad = pads.find(pad => pad.color === color);
+
+  pad.sound.play();
+
+  checkPress(color);
+
   return color;
 }
 
@@ -309,6 +323,12 @@ function activatePads(sequence) {
  */
 function playHumanTurn() {
   // TODO: Write your code here.
+
+  padContainer.classList.remove("unclickable");
+
+  const remainingPresses = computerSequence.length - playerSequence.length;
+
+  statusSpan.textContent = `Round ${roundCount}: ${remainingPresses} presses left`;
 }
 
 /**
@@ -335,6 +355,23 @@ function playHumanTurn() {
  */
 function checkPress(color) {
   // TODO: Write your code here.
+  playerSequence.push(color);
+
+  const index = playerSequence.length - 1;
+
+  const remainingPresses = computerSequence.length - playerSequence.length;
+
+  statusSpan.textContent = `Round ${roundCount}: ${remainingPresses} presses left`;
+
+  if (computerSequence[index] !== playerSequence[index]) {
+    // Mismatch found, reset the game
+    resetGame("You Lost! Try again!");
+    return;
+  }
+
+  if (remainingPresses === 0) {
+    checkRound();
+  }  
 }
 
 /**
@@ -354,6 +391,18 @@ function checkPress(color) {
 
 function checkRound() {
   // TODO: Write your code here.
+  if (playerSequence.length === maxRoundCount) {
+    resetGame("Congratulations! You Won!");
+    return;
+  }
+
+  roundCount += 1;
+
+  playerSequence = [];
+
+  statusSpan.textContent = `Nice! Keep going! Round ${roundCount}`;
+
+  setTimeout(playComputerTurn, 1000);
 }
 
 /**
@@ -368,12 +417,16 @@ function checkRound() {
 function resetGame(text) {
   // TODO: Write your code here.
 
+  computerSequence = [];
+  playerSequence = [];
+  roundCount = 0;
+
   // Uncomment the code below:
-  // alert(text);
-  // setText(heading, "Simon Says");
-  // startButton.classList.remove("hidden");
-  // statusSpan.classList.add("hidden");
-  // padContainer.classList.add("unclickable");
+  alert(text);
+  setText(heading, "Simon Says");
+  startButton.classList.remove("hidden");
+  statusSpan.classList.add("hidden");
+  padContainer.classList.add("unclickable");
 }
 
 /**
