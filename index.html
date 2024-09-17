@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/styles.css" />
     <title>Simon Says</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
   </head>
   <body>
     <main>
@@ -14,9 +15,18 @@
 
       <section class="game-controls">
         <!--TODO: Add the start button -->
-        <button class="start-button js-start-button">Start!</button>
+        <button class="start-button js-start-button">Play!</button>
         <span class="status hidden js-status"></span>
+        <select id="levelDropdown" class="hidden js-level-dropdown">
+          <option value="" disabled selected>Choose a level</option>
+          <option value="1">Easy</option>
+          <option value="2">Medium</option>
+          <option value="3">Hard</option>
+          <option value="4">Extreme</option>
+        </select>
       </section>
+
+      <span id="resultText"></span>
 
       <section class="pad-container unclickable js-pad-container">
         <div class="pad pad-red js-pad-red" data-color="red"></div>

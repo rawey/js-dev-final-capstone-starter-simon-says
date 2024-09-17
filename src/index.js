@@ -4,9 +4,16 @@
 
  const startButton = document.querySelector(".js-start-button");
  // TODO: Add the missing query selectors:
- const statusSpan = document.querySelector(".js-status"); // Use querySelector() to get the status element
- const heading = document.querySelector(".js-heading");  // Use querySelector() to get the heading element
- const padContainer = document.querySelector(".js-pad-container"); // Use querySelector() to get the heading element
+ const statusSpan = document.querySelector(".js-status");
+ const heading = document.querySelector(".js-heading");
+ const padContainer = document.querySelector(".js-pad-container");
+ const levelDropdown = document.querySelector(".js-level-dropdown");
+ const resultText = document.getElementById("resultText");
+ const backgroundMusic = new Audio('../assets/AdhesiveWombat - Night Shade  NO COPYRIGHT 8-bit Music.mp3');
+ const winMusic = new Audio('../assets/Epic Win-SOUND EFFECT (HD)-YOU FREE AUDIO  NO COPYRIGHT AUDIO FOR YOUTUBE CREATORS.mp3');
+ const loseMusic = new Audio('../assets/The Price is Right Losing Horn - Sound Effect (HD).mp3');
+ const startClickSound = new Audio('../assets/Start_Button.mp3');
+ const dropdownSelectSound = new Audio('../assets/DropDown_Button.mp3');
 
 /**
  * VARIABLES
@@ -70,11 +77,34 @@ let roundCount = 0; // track the number of rounds that have been played so far
 padContainer.addEventListener("click", padHandler);
 // TODO: Add an event listener `startButtonHandler()` to startButton.
 startButton.addEventListener("click", startButtonHandler);
+
+levelDropdown.addEventListener("mousedown", function () {
+  dropdownSelectSound.play();
+});
+
+levelDropdown.addEventListener("change", function () {
+
+  dropdownSelectSound.play();
+
+  const level = parseInt(levelDropdown.value, 10);
+
+  maxRoundCount = setLevel(level);
+  roundCount = 1;
+
+  // startButton.classList.add("hidden");
+  levelDropdown.classList.add("hidden");
+
+  statusSpan.classList.remove("hidden");
+  statusSpan.textContent = `Round ${roundCount}: Game Started!`;
+
+  playComputerTurn();
+});
 /**
  * EVENT HANDLERS
  */
 
 /**
+ * 
  * Called when the start button is clicked.
  *
  * 1. Call setLevel() to set the level of the game
@@ -89,28 +119,25 @@ startButton.addEventListener("click", startButtonHandler);
  *
  */
 function startButtonHandler() {
-  // TODO: Write your code here.
+  // TODO: Write your code here.  
 
-  let level = parseInt(prompt("Choose a level (1 to 4):"), 10);
+  startClickSound.play();
 
-  while (![1, 2, 3, 4].includes(level)) {
-    level = parseInt(prompt("Please enter a valid level (1 to 4):"), 10);
-  }
+  winMusic.pause();
+  winMusic.currentTime = 0;
+  loseMusic.pause();
+  loseMusic.currentTime = 0;
+  backgroundMusic.volume = 0.07;
+  backgroundMusic.play();
+  backgroundMusic.loop = true;
 
-  maxRoundCount = setLevel(level);
-
-  setLevel(); 
-
-  roundCount = 1;
+  resultText.classList.remove("show");
+  resultText.textContent = "";
 
   startButton.classList.add("hidden");
 
-  statusSpan.classList.remove("hidden");
-  statusSpan.textContent = `Round ${roundCount}: Game Started!`;
-
-  playComputerTurn();
-
-  return { startButton, statusSpan };
+  levelDropdown.classList.remove("hidden");  
+  
 }
 
 /**
@@ -372,8 +399,10 @@ function checkPress(color) {
   statusSpan.textContent = `Round ${roundCount}: ${remainingPresses} presses left`;
 
   if (computerSequence[index] !== playerSequence[index]) {
-    // Mismatch found, reset the game
-    resetGame("You Lost! Try again!");
+    document.documentElement.style.setProperty('--result-text-color', 'red');
+    loseMusic.play();
+    loseMusic.volume = 0.1;
+    resetGame("You Lost! <br> Try again?");
     return;
   }
 
@@ -400,7 +429,20 @@ function checkPress(color) {
 function checkRound() {
   // TODO: Write your code here.
   if (playerSequence.length === maxRoundCount) {
-    resetGame("Congratulations! You Won!");
+    document.documentElement.style.setProperty('--result-text-color', 'green');
+    winMusic.play();
+    winMusic.volume = 0.1;
+
+    confetti({
+      particleCount: 400,
+      spread: 360,
+      origin: {
+        x: 0.5,
+        y: 0.5
+      },
+    });
+
+    resetGame("Congratulations! <br> You Won!");
     return;
   }
 
@@ -425,13 +467,34 @@ function checkRound() {
 function resetGame(text) {
   // TODO: Write your code here.
 
+  backgroundMusic.pause();
+  backgroundMusic.currentTime = 0;
+
   computerSequence = [];
   playerSequence = [];
   roundCount = 0;
 
   // Uncomment the code below:
-  alert(text);
-  setText(heading, "Rawey Says");
+  // alert(text);
+  
+  resultText.innerHTML = text;
+  resultText.classList.add("show");  
+
+  levelDropdown.selectedIndex = 0;
+
+  // setTimeout(() => {
+  //   resultText.classList.remove("show");
+  //   resultText.textContent = "";
+    
+  // }, 7000);
+
+  setText(heading, "Rawey Says!");
+  if (text === "Congratulations! <br> You Won!") {
+    startButton.textContent = "Play Again!"
+  } else {
+    startButton.textContent = "Try Again!"
+  }
+  
   startButton.classList.remove("hidden");
   statusSpan.classList.add("hidden");
   padContainer.classList.add("unclickable");
