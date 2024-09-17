@@ -9,11 +9,11 @@
  const padContainer = document.querySelector(".js-pad-container");
  const levelDropdown = document.querySelector(".js-level-dropdown");
  const resultText = document.getElementById("resultText");
- const backgroundMusic = new Audio('../assets/AdhesiveWombat - Night Shade  NO COPYRIGHT 8-bit Music.mp3');
- const winMusic = new Audio('../assets/Epic Win-SOUND EFFECT (HD)-YOU FREE AUDIO  NO COPYRIGHT AUDIO FOR YOUTUBE CREATORS.mp3');
- const loseMusic = new Audio('../assets/The Price is Right Losing Horn - Sound Effect (HD).mp3');
- const startClickSound = new Audio('../assets/Start_Button.mp3');
- const dropdownSelectSound = new Audio('../assets/DropDown_Button.mp3');
+ const backgroundMusic = new Audio('https://github.com/rawey/js-dev-final-capstone-starter-simon-says/blob/main/assets/AdhesiveWombat%20-%20Night%20Shade%20%20NO%20COPYRIGHT%208-bit%20Music.mp3');
+ const winMusic = new Audio('https://github.com/rawey/js-dev-final-capstone-starter-simon-says/blob/main/assets/Epic%20Win-SOUND%20EFFECT%20(HD)-YOU%20FREE%20AUDIO%20%20NO%20COPYRIGHT%20AUDIO%20FOR%20YOUTUBE%20CREATORS.mp3');
+ const loseMusic = new Audio('https://github.com/rawey/js-dev-final-capstone-starter-simon-says/blob/main/assets/The%20Price%20is%20Right%20Losing%20Horn%20-%20Sound%20Effect%20(HD).mp3');
+ const startClickSound = new Audio('https://github.com/rawey/js-dev-final-capstone-starter-simon-says/blob/main/assets/Start_Button.mp3');
+ const dropdownSelectSound = new Audio('https://github.com/rawey/js-dev-final-capstone-starter-simon-says/blob/main/assets/DropDown_Button.mp3');
 
 /**
  * VARIABLES
